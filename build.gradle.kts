@@ -8,14 +8,12 @@ plugins {
 group = "com.featurevisor"
 version = "1.0.0"
 
-
 repositories {
     mavenCentral()
     maven { url = uri("https://jitpack.io") }
 }
 
 publishing {
-
     repositories {
         mavenLocal()
     }
@@ -30,7 +28,6 @@ gradlePlugin {
     }
 }
 
-
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     implementation("com.github.featurevisor:featurevisor-kotlin:0.0.7")
@@ -40,6 +37,7 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
 kotlin {
     jvmToolchain(17)
 }
