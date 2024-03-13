@@ -11,13 +11,6 @@ repositories {
 }
 
 publishing {
-//    publications {
-//        create<MavenPublication>("default") {
-//            from(components["java"])
-//            // Include any other artifacts here, like javadocs
-//        }
-//    }
-
     repositories {
         maven {
             name = "GitHubPackages"
@@ -33,11 +26,8 @@ publishing {
 gradlePlugin {
     plugins {
         create("featurevisor-plugin") {
-            id = "com.featurevisor.featurevisor-kotlin-plugin"
+            id = "com.featurevisor.plugin"
             implementationClass = "com.featurevisor.plugin.TestRunnerPlugin"
-//            displayName = "Featurevisor Plugin"
-//            description = "Need to use this plugin to "
-//            tags.set(listOf("test-runner", "run-test-case", "test"))
         }
     }
 }
