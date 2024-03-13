@@ -30,7 +30,6 @@ gradlePlugin {
     }
 }
 
-
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     implementation("com.github.featurevisor:featurevisor-kotlin:0.0.7")
