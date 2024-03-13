@@ -33,7 +33,7 @@ publishing {
 gradlePlugin {
     plugins {
         create("featurevisor-plugin") {
-            id = "com.featurevisor.plugin"
+            id = "com.featurevisor.featurevisor-kotlin-plugin"
             implementationClass = "com.featurevisor.plugin.TestRunnerPlugin"
 //            displayName = "Featurevisor Plugin"
 //            description = "Need to use this plugin to "
