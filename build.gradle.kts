@@ -5,19 +5,28 @@ plugins {
     `maven-publish`
 }
 
-group = "com.featurevisor"
-version = "1.0.0"
-
-
 repositories {
     mavenCentral()
     maven { url = uri("https://jitpack.io") }
 }
 
 publishing {
+    publications {
+        create<MavenPublication>("default") {
+            from(components["java"])
+            // Include any other artifacts here, like javadocs
+        }
+    }
 
     repositories {
-        mavenLocal()
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/featurevisor/featurevisor-kotlin-plugin")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }
 
@@ -26,6 +35,9 @@ gradlePlugin {
         create("featurevisor-plugin") {
             id = "com.featurevisor.plugin"
             implementationClass = "com.featurevisor.plugin.TestRunnerPlugin"
+//            displayName = "Featurevisor Plugin"
+//            description = "Need to use this plugin to "
+//            tags.set(listOf("test-runner", "run-test-case", "test"))
         }
     }
 }
