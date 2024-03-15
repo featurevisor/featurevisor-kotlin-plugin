@@ -8,11 +8,7 @@ plugins {
 repositories {
     mavenCentral()
     maven {
-        url = uri("https://maven.pkg.github.com/featurevisor/featurevisor-kotlin")
-        credentials {
-            username = System.getenv("GITHUB_ACTOR") ?: "Tan108"
-            password = System.getenv("GITHUB_TOKEN") ?: "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"
-        }
+        url = uri("https://jitpack.io")
     }
 }
 
@@ -41,7 +37,7 @@ gradlePlugin {
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
-    implementation("com.featurevisor:featurevisor-kotlin:0.0.8")
+    implementation("com.github.featurevisor:featurevisor-kotlin:0.0.8")
     implementation(gradleApi())
 }
 
