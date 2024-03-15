@@ -10,8 +10,8 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/featurevisor/featurevisor-kotlin")
         credentials {
-            username = "Tan108"
-            password = "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"
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
         }
     }
 }
