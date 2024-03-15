@@ -10,14 +10,15 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/featurevisor/featurevisor-kotlin")
         credentials {
-            username = System.getenv("GITHUB_ACTOR")
-            password = System.getenv("GITHUB_TOKEN")
+            username = System.getenv("GITHUB_ACTOR") ?: "Tan108"
+            password = System.getenv("GITHUB_TOKEN") ?: "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"
         }
     }
 }
 
 publishing {
     repositories {
+        mavenLocal()
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/featurevisor/featurevisor-kotlin-plugin")
