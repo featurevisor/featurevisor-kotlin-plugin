@@ -2,67 +2,62 @@ package com.featurevisor.tasks
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 import com.featurevisor.testRunner.*
+import org.gradle.api.tasks.options.Option
 
 open class RunAllTestsTask : DefaultTask() {
 
     companion object {
-        const val NAME = "run-test"
+        const val NAME = "test"
     }
 
     @Input
-    @Optional
-    var rootProjectPath: String? = null
+    @Option(option = "rootProjectPath", description = "Whether to run test for specific project")
+    var rootProjectPath: String = project.projectDir.absolutePath
 
     @Input
-    @Optional
-    var testDirPath: String? = null
+    @Option(option = "testDirPath", description = "Whether to run test for specific test directory")
+    var testDirPath: String = "tests"
 
     @Input
-    @Optional
-    var featureName: String? = null
+    @Option(option = "keyPattern", description = "Run test for specific key pattern")
+    var keyPattern: String = ""
 
     @Input
-    @Optional
-    var segmentName: String? = null
+    @Option(option = "assertionPattern", description = "Run test for specific assertion pattern")
+    var assertionPattern: String = ""
+
+    @Input
+    @Option(option = "verbose", description = "Whether to run tests in verbose mode")
+    var verbose: Boolean = false
+
+    @Input
+    @Option(option = "showDatafile", description = "Whether to run tests by showing datafile")
+    var showDatafile: Boolean = false
+
+    @Input
+    @Option(option = "onlyFailures", description = "Whether to run tests by showing only failed tests")
+    var onlyFailures: Boolean = false
+
+    @Input
+    @Option(option = "fast", description = "Whether to run tests in fast mode")
+    var fast: Boolean = false
 
     @TaskAction
     fun executeTask() {
 
-        when {
-            (rootProjectPath.isNullOrEmpty().not() && testDirPath.isNullOrEmpty().not()) -> {
-                startTest(rootProjectPath.orEmpty(), testDirPath.orEmpty())
-            }
+        val testProjectOption = TestProjectOption(
+            keyPattern = keyPattern,
+            assertionPattern = assertionPattern,
+            verbose = verbose,
+            showDatafile = showDatafile,
+            onlyFailures = onlyFailures,
+            fast = fast,
+            projectRootPath = rootProjectPath,
+            testDirPath = testDirPath
+        )
 
-            (rootProjectPath.isNullOrEmpty().not() && featureName.isNullOrEmpty().not()) -> {
-                testSingleFeature(featureKey = featureName.orEmpty(), projectRootPath = rootProjectPath.orEmpty())
-            }
-
-            (rootProjectPath.isNullOrEmpty().not() && segmentName.isNullOrEmpty().not()) -> {
-                testSingleSegment(segmentKey = segmentName.orEmpty(), projectRootPath = rootProjectPath.orEmpty())
-            }
-
-            rootProjectPath.isNullOrEmpty().not() -> {
-                startTest(projectRootPath = rootProjectPath.orEmpty())
-            }
-
-            testDirPath.isNullOrEmpty().not() -> {
-                startTest(testDirPath = testDirPath.orEmpty(), projectRootPath = project.projectDir.absolutePath)
-            }
-
-            featureName.isNullOrEmpty().not() -> {
-                testSingleFeature(featureKey = featureName.orEmpty(), projectRootPath = project.projectDir.absolutePath)
-            }
-
-            segmentName.isNullOrEmpty().not() -> {
-                testSingleSegment(segmentKey = segmentName.orEmpty(), projectRootPath = project.projectDir.absolutePath)
-            }
-
-            else -> {
-                startTest(projectRootPath = project.projectDir.absolutePath)
-            }
-        }
+        startTest(testProjectOption)
     }
 }
