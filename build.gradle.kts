@@ -7,9 +7,7 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven {
-        url = uri("https://jitpack.io")
-    }
+    maven { url = uri("https://jitpack.io") }
 }
 
 publishing {
@@ -37,7 +35,7 @@ gradlePlugin {
 
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
-    implementation("com.github.featurevisor:featurevisor-kotlin:0.0.8")
+    implementation("com.github.featurevisor:featurevisor-kotlin:0.0.11")
     implementation(gradleApi())
 }
 
